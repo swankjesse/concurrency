@@ -1,0 +1,6 @@
+<resources>
+  <string name="app_name">Pixel Sorter</string>
+  <string name="shuffle">Shuffle</string>
+  <string name="sort1">Sort 1</string>
+  <string name="sort10">Sort 10</string>
+</resources>
