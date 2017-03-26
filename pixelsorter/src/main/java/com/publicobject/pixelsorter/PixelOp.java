@@ -30,7 +30,7 @@ enum PixelOp {
     }
   },
 
-  SORT_SWAP_A_ROW {
+  SORT_SWAP_AND_FLIP_A_ROW {
     @Override public boolean run(PixelGrid grid, Random random) {
       int startRow = random.nextInt(grid.rowCount);
 
@@ -48,8 +48,8 @@ enum PixelOp {
 
         if (count1 > count2) {
           for (int c = 0; c < grid.columnCount; c++) {
-            int tmp = grid.pixels[r2][c];
-            grid.pixels[r2][c] = grid.pixels[r1][c];
+            int tmp = grid.pixels[r2][grid.columnCount - 1 - c];
+            grid.pixels[r2][grid.columnCount - 1 - c] = grid.pixels[r1][c];
             grid.pixels[r1][c] = tmp;
           }
           return true;

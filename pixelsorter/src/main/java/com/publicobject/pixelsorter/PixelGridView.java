@@ -17,16 +17,25 @@ public final class PixelGridView extends View {
   public PixelGridView(Context context, AttributeSet attrs) {
     super(context, attrs);
 
-    paints = new Paint[2];
+    paints = new Paint[3];
+
     paints[0] = new Paint();
-    paints[0].setColor(Color.BLUE);
+    paints[0].setColor(getResources().getColor(R.color.blue));
     paints[0].setTextAlign(Paint.Align.LEFT);
     paints[0].setTextSize(96);
 
     paints[1] = new Paint();
-    paints[1].setColor(Color.RED);
+    paints[1].setColor(getResources().getColor(R.color.red));
     paints[1].setTextAlign(Paint.Align.RIGHT);
     paints[1].setTextSize(96);
+
+    paints[2] = new Paint();
+    paints[2].setColor(Color.WHITE);
+    paints[2].setTextAlign(Paint.Align.CENTER);
+    paints[2].setTextSize(96);
+
+    // This view draws a ton of small boxes and that's much more efficient in software.
+    setLayerType(LAYER_TYPE_SOFTWARE, null);
   }
 
   public PixelGrid grid() {
@@ -54,17 +63,19 @@ public final class PixelGridView extends View {
           redCount++;
         }
 
-        Paint paint = paints[color];
-
         int left = pixelStrideDb * c;
         int top = pixelStrideDb * r;
-        canvas.drawRect(left, top, left + pixelWidthDp, top + pixelWidthDp, paint);
+        canvas.drawRect(left, top, left + pixelWidthDp, top + pixelWidthDp, paints[color]);
       }
     }
 
     canvas.drawText(Integer.toString(blueCount), 0, getHeight(), paints[0]);
     canvas.drawText(Integer.toString(redCount),
         (grid.columnCount - 1) * pixelStrideDb + pixelWidthDp, getHeight(), paints[1]);
+    int delta = Math.abs(redCount - blueCount);
+    if (delta > 1) {
+      canvas.drawText(Integer.toString(delta), getWidth() / 2, getHeight(), paints[2]);
+    }
 
     invalidate(); // Repaint on every frame!
   }

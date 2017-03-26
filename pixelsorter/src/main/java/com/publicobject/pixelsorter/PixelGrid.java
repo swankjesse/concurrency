@@ -57,7 +57,7 @@ public final class PixelGrid {
   private void sort(ExecutorService executor) {
     runOp(executor, 2, PixelOp.SORT_FLIP_SLICE_4);
     runOp(executor, 2, PixelOp.SORT_FLIP_SLICE_5);
-    runOp(executor, 2, PixelOp.SORT_SWAP_A_ROW);
+    runOp(executor, 2, PixelOp.SORT_SWAP_AND_FLIP_A_ROW);
     runOp(executor, 2, PixelOp.SORT_SWAP_MIN_MAX);
   }
 
